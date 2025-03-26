@@ -25,3 +25,4 @@ dmypy.json
 task_history.yaml
 .aider.conf.yml
 .aider.model.settings.yml
+.aider*
