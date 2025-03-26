@@ -21,3 +21,5 @@ dmypy.json
 
 /coverage.xml
 /.coverage
+.aider.tags.cache.v4/cache.db
+task_history.yaml
