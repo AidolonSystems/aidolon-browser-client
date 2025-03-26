@@ -23,3 +23,5 @@ dmypy.json
 /.coverage
 .aider.tags.cache.v4/cache.db
 task_history.yaml
+.aider.conf.yml
+.aider.model.settings.yml
