@@ -182,8 +182,8 @@ class AuthenticatedClient:
     _async_client: Optional[httpx.AsyncClient] = field(default=None, init=False)
 
     token: Optional[str] = None
-    prefix: str = "Bearer"
-    auth_header_name: str = "Authorization"
+    prefix: str = ""
+    auth_header_name: str = "X-API-Key"
 
     def __attrs_post_init__(self):
         if self.token is None:

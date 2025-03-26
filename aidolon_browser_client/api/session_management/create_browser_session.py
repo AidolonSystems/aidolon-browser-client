@@ -109,7 +109,6 @@ def sync_detailed(
 
     )
 
-    print(kwargs)
     response = client.get_httpx_client().request(
         **kwargs,
     )
