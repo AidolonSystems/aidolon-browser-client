@@ -190,6 +190,8 @@ class AuthenticatedClient:
             self.token = os.getenv("API_KEY")
             if self.token is None:
                 raise ValueError("API key is missing. Please provide it as an argument or set it in the environment.")
+
+    def with_headers(self, headers: dict[str, str]) -> "AuthenticatedClient":
         """Get a new client matching this one with additional headers"""
         if self._client is not None:
             self._client.headers.update(headers)
