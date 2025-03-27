@@ -1,21 +1,11 @@
 import pytest
-from aidolon_browser_client.client import Client
 import os
 from dotenv import load_dotenv
+from aidolon_browser_client.client import AuthenticatedClient
+
 load_dotenv()
 
 API_BASE_URL = os.environ.get('API_BASE_URL', 'http://localhost:3005/api/v1')
-
-@pytest.fixture
-def client():
-    """Fixture providing a configured Client instance for tests."""
-    return Client(
-        base_url=API_BASE_URL, 
-        raise_on_unexpected_status=True  # Helpful for tests to raise on unexpected responses
-    )
-import pytest
-import os
-from aidolon_browser_client.client import AuthenticatedClient
 
 @pytest.fixture
 def client():
