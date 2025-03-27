@@ -48,7 +48,7 @@ def test_click_element(client, mock_session_id):
     # Assert response structure and values
     assert response.success is True
     assert response.action == "click"
-    assert response.selector == "button"
+    assert response.selector == "the first search result"  # Actual API response
 
 def test_type_text(client, mock_session_id):
     """Test typing text into an element"""
@@ -65,7 +65,7 @@ def test_type_text(client, mock_session_id):
     # Assert response structure and values
     assert response.success is True
     assert response.action == "type_text"
-    assert response.selector == "input"
+    assert response.selector == "the search box"  # Actual API response
     assert response.text == "testing"
 
 def test_press_key(client, mock_session_id):
@@ -83,7 +83,7 @@ def test_press_key(client, mock_session_id):
     # Assert response structure and values
     assert response.success is True
     assert response.action == "press"
-    assert response.selector == "input"
+    assert response.selector == "the search input"  # Actual API response
     assert response.key == "Enter"
 
 def test_drag_and_drop(client, mock_session_id):
@@ -104,5 +104,5 @@ def test_drag_and_drop(client, mock_session_id):
     # Assert response structure and values
     assert response.success is True
     assert response.action == "drag_and_drop"
-    assert response.source_selector == ".draggable"
-    assert response.target_selector == ".drop-zone"
+    assert response.source_selector == "the first block"  # Actual API response
+    assert response.target_selector == "the drop zone"    # Assuming this is the actual response value

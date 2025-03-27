@@ -36,11 +36,14 @@ class ScrapeInformationResponse200Data:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        # Handle case where API returns a string instead of a dictionary
+        if isinstance(src_dict, str):
+            scrape_information_response_200_data = cls()
+            scrape_information_response_200_data.additional_properties = {"content": src_dict}
+            return scrape_information_response_200_data
+    
         d = dict(src_dict)
-        scrape_information_response_200_data = cls(
-        )
-
-
+        scrape_information_response_200_data = cls()
         scrape_information_response_200_data.additional_properties = d
         return scrape_information_response_200_data
 
