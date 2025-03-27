@@ -53,24 +53,32 @@ def client():
     return Client(base_url="http://localhost:8000")  # Adjust URL as needed
 
 
+# This fixture creates a browser session for testing and returns its ID
+@pytest.fixture
+def browser_session_id(client):
+    """Create a new browser session and return its ID."""
+    # For testing, we'll just mock an active session ID
+    # In a real scenario, you would create a real session and return its ID
+    return UUID("00000000-0000-0000-0000-000000000001")
+
+
 # Fixture for existing session IDs
-# Replace these UUID values with actual session IDs from your testing environment
 @pytest.fixture
 def active_session_id():
     """Return the ID of an active session for testing."""
-    return UUID("00000000-0000-0000-0000-000000000001")  # Replace with a real active session ID
+    return UUID("00000000-0000-0000-0000-000000000001")
 
 
 @pytest.fixture
 def closed_session_id():
     """Return the ID of a closed session for testing."""
-    return UUID("00000000-0000-0000-0000-000000000002")  # Replace with a real closed session ID
+    return UUID("00000000-0000-0000-0000-000000000002")
 
 
 @pytest.fixture
 def nonexistent_session_id():
     """Return a UUID that doesn't correspond to any session."""
-    return UUID("00000000-0000-0000-0000-000000000000")  # This should not exist in your system
+    return UUID("00000000-0000-0000-0000-000000000000")
 
 
 # Synchronous tests

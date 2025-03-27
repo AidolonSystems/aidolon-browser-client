@@ -85,7 +85,7 @@ class Client:
 
     def get_httpx_client(self) -> httpx.Client:
         """Get the underlying httpx.Client, constructing a new one if not previously set"""
-        if self._client is None and self.token:
+        if self._client is None:
             self._client = httpx.Client(
                 base_url=self._base_url,
                 cookies=self._cookies,
@@ -116,7 +116,7 @@ class Client:
 
     def get_async_httpx_client(self) -> httpx.AsyncClient:
         """Get the underlying httpx.AsyncClient, constructing a new one if not previously set"""
-        if self._async_client is None and self.token:
+        if self._async_client is None:
             self._async_client = httpx.AsyncClient(
                 base_url=self._base_url,
                 cookies=self._cookies,
