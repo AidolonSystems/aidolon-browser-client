@@ -104,6 +104,7 @@ def sync_detailed(
         Response[Union[CreateBrowserSessionResponse200, CreateBrowserSessionResponse402, Error]]
      """
 
+
     kwargs = _get_kwargs(
         body=body,
 

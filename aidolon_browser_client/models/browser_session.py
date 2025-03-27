@@ -10,6 +10,7 @@ from ..models.browser_session_status import BrowserSessionStatus
 from ..types import UNSET, Unset
 from dateutil.parser import isoparse
 from typing import cast
+from typing import cast, Union
 from typing import Union
 from uuid import UUID
 import datetime
@@ -35,7 +36,7 @@ class BrowserSession:
             embed_url (Union[Unset, str]): URL to embed the browser session in an iframe
             updated_at (Union[Unset, datetime.datetime]): When the session was last updated
             last_active_at (Union[Unset, datetime.datetime]): When the session was last active
-            closed_at (Union[Unset, datetime.datetime]): When the session was closed, if applicable
+            closed_at (Union[None, Unset, datetime.datetime]): When the session was closed, if applicable
             live_session (Union[Unset, BrowserSessionLiveSession]): Information about the live browser session
      """
 
@@ -45,7 +46,7 @@ class BrowserSession:
     embed_url: Union[Unset, str] = UNSET
     updated_at: Union[Unset, datetime.datetime] = UNSET
     last_active_at: Union[Unset, datetime.datetime] = UNSET
-    closed_at: Union[Unset, datetime.datetime] = UNSET
+    closed_at: Union[None, Unset, datetime.datetime] = UNSET
     live_session: Union[Unset, 'BrowserSessionLiveSession'] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -68,9 +69,13 @@ class BrowserSession:
         if not isinstance(self.last_active_at, Unset):
             last_active_at = self.last_active_at.isoformat()
 
-        closed_at: Union[Unset, str] = UNSET
-        if not isinstance(self.closed_at, Unset):
+        closed_at: Union[None, Unset, str]
+        if isinstance(self.closed_at, Unset):
+            closed_at = UNSET
+        elif isinstance(self.closed_at, datetime.datetime):
             closed_at = self.closed_at.isoformat()
+        else:
+            closed_at = self.closed_at
 
         live_session: Union[Unset, dict[str, Any]] = UNSET
         if not isinstance(self.live_session, Unset):
@@ -140,14 +145,24 @@ class BrowserSession:
 
 
 
-        _closed_at = d.pop("closed_at", UNSET)
-        closed_at: Union[Unset, datetime.datetime]
-        if isinstance(_closed_at,  Unset):
-            closed_at = UNSET
-        else:
-            closed_at = isoparse(_closed_at)
+        def _parse_closed_at(data: object) -> Union[None, Unset, datetime.datetime]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, str):
+                    raise TypeError()
+                closed_at_type_0 = isoparse(data)
 
 
+
+                return closed_at_type_0
+            except: # noqa: E722
+                pass
+            return cast(Union[None, Unset, datetime.datetime], data)
+
+        closed_at = _parse_closed_at(d.pop("closed_at", UNSET))
 
 
         _live_session = d.pop("live_session", UNSET)
