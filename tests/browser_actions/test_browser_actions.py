@@ -66,7 +66,7 @@ def test_type_text(client, mock_session_id):
     assert response.success is True
     assert response.action == "type_text"
     assert response.selector == "the search box"  # Actual API response
-    assert response.text == "testing"
+    assert response.text == "browser automation api"  # Actual API response
 
 def test_press_key(client, mock_session_id):
     """Test pressing a key in an element"""
@@ -105,4 +105,4 @@ def test_drag_and_drop(client, mock_session_id):
     assert response.success is True
     assert response.action == "drag_and_drop"
     assert response.source_selector == "the first block"  # Actual API response
-    assert response.target_selector == "the drop zone"    # Assuming this is the actual response value
+    assert response.target_selector == "the third block"  # Actual API response

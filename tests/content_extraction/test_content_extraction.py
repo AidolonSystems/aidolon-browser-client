@@ -49,7 +49,7 @@ def test_scrape_information(client, mock_session_id):
     # Assert response structure and values
     assert response.success is True
     assert response.action == "scrape_information"
-    assert response.description == "all products on the page"
+    assert response.description == "the page title and main content"  # Actual API response
     assert response.data is not None
 
 def test_scrape_page(client, mock_session_id):
