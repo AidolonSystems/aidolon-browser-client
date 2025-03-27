@@ -1,5 +1,6 @@
 import pytest
 import asyncio
+import time
 from uuid import UUID
 
 from aidolon_browser_client.api.session_management.get_browser_context import (
@@ -8,20 +9,31 @@ from aidolon_browser_client.api.session_management.get_browser_context import (
     asyncio_detailed,
     asyncio as asyncio_get_browser_context,
 )
+from aidolon_browser_client.api.session_management.create_browser_session import sync as create_session
+from aidolon_browser_client.models.create_browser_session_body import CreateBrowserSessionBody
+from aidolon_browser_client.api.browser_actions.navigate_browser import sync as navigate_browser
+from aidolon_browser_client.models.navigate_browser_body import NavigateBrowserBody
 from aidolon_browser_client.models.get_browser_context_response_200 import GetBrowserContextResponse200
 from aidolon_browser_client.models.browser_context import BrowserContext
 
 # This fixture creates a browser session for testing and returns its ID
-# In a real implementation, you would use your API to create a browser session
 @pytest.fixture
 def browser_session_id(client):
-    # TODO: Replace with actual code to create a browser session
-    # For example:
-    # response = create_browser_session_sync(client=client, url="https://example.com")
-    # return response.session_id
+    # Create a new browser session
+    session_body = CreateBrowserSessionBody(url="https://www.example.com")
+    response = create_session(client=client, body=session_body)
     
-    # For now, using a placeholder UUID - will fail tests until replaced
-    return UUID("12345678-1234-5678-1234-567812345678")
+    # Extract the session ID from the response
+    session_id = response.session_id
+    
+    # Navigate to initialize the browser context
+    navigate_body = NavigateBrowserBody(url="https://www.example.com")
+    navigate_browser(session_id=session_id, client=client, body=navigate_body)
+    
+    # Wait for the browser context to be fully initialized
+    time.sleep(2)
+    
+    return session_id
 
 def test_sync_detailed_get_browser_context(client, browser_session_id):
     """Test the sync_detailed function for getting browser context."""
