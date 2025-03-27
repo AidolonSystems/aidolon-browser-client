@@ -50,7 +50,7 @@ def validate_error_response(response):
 @pytest.fixture
 def client():
     """Create a client instance for testing."""
-    return Client(base_url="http://localhost:8000")  # Adjust URL as needed
+    return Client(base_url="http://localhost:3005")  # Adjust URL as needed
 
 
 # This fixture creates a browser session for testing and returns its ID
