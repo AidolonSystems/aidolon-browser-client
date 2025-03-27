@@ -20,7 +20,7 @@ from aidolon_browser_client.models.browser_context import BrowserContext
 @pytest.fixture
 def browser_session_id(client):
     # Create a new browser session
-    session_body = CreateBrowserSessionBody(url="https://www.example.com")
+    session_body = CreateBrowserSessionBody()
     response = create_session(client=client, body=session_body)
     
     # Extract the session ID from the response
