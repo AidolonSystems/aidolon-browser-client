@@ -40,6 +40,7 @@ from aidolon_browser_client.models import (
 from aidolon_browser_client.models.error import Error
 
 class BrowserSession:
+    # Rest of the class implementation is unchanged
     def __init__(self, api_key: Optional[str] = None, base_url: str = "https://api.aidolon.com"):
         """Initialize a browser session with Aidolon.
         
