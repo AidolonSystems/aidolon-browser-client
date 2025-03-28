@@ -1,10 +1,12 @@
 from uuid import UUID
-from typing import Optional, Union, List
+from typing import Optional, Union, List, Dict, Any
 
 from aidolon_browser_client import AuthenticatedClient
 from aidolon_browser_client.api.session_management import (
     create_browser_session,
-    close_browser_session
+    close_browser_session,
+    get_session_status,
+    get_browser_context
 )
 from aidolon_browser_client.api.browser_actions import (
     click_element,
@@ -47,6 +49,10 @@ class BrowserSession:
         """
         self.client = AuthenticatedClient(base_url=base_url, token=api_key) if api_key else AuthenticatedClient(base_url=base_url)
         self.session_id = None
+        self.live_viewer_url = None
+        self.dimensions = None
+        self.user_agent = None
+        self.timeout = None
         
         # Create a browser session
         session_body = CreateBrowserSessionBody(
@@ -61,6 +67,14 @@ class BrowserSession:
         
         if hasattr(response, 'session_id'):
             self.session_id = response.session_id
+            self.live_viewer_url = response.embed_url if hasattr(response, 'embed_url') else None
+            
+            if hasattr(response, 'live_session'):
+                live_session = response.live_session
+                self.dimensions = live_session.dimensions if hasattr(live_session, 'dimensions') else None
+                self.user_agent = live_session.user_agent if hasattr(live_session, 'user_agent') else None
+                self.timeout = live_session.timeout if hasattr(live_session, 'timeout') else None
+            
             print("Browser session started.")
         else:
             raise Exception("Failed to create browser session.")
@@ -307,6 +321,48 @@ class BrowserSession:
         
         print("PDF generated.")
         return response
+    
+    def get_details(self) -> Dict[str, Any]:
+        """Retrieve the latest session details from the remote API.
+        
+        Returns:
+            Complete session details as a dictionary.
+        """
+        if not self.session_id:
+            raise Exception("No active browser session.")
+        
+        response = get_session_status.sync(
+            client=self.client,
+            session_id=self.session_id
+        )
+        
+        return response
+    
+    def get_status(self) -> str:
+        """Get the current status of the browser session.
+        
+        Returns:
+            Status string.
+        """
+        details = self.get_details()
+        
+        return details.status if hasattr(details, 'status') else 'unknown'
+    
+    def get_context(self) -> Dict[str, Any]:
+        """Retrieve the browser context data from the remote API.
+        
+        Returns:
+            Context data as a dictionary.
+        """
+        if not self.session_id:
+            raise Exception("No active browser session.")
+        
+        response = get_browser_context.sync(
+            client=self.client,
+            session_id=self.session_id
+        )
+        
+        return response.context if hasattr(response, 'context') else response
     
     def close_session(self):
         """Close the browser session and release resources."""
