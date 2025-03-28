@@ -6,6 +6,7 @@ browser.navigate("https://www.google.com")
 browser.type("the search input", "donuts")
 browser.press("the search input", "Enter")
 browser.click("the first search result")
+
 browser.close_session()
 
 print("-----")
