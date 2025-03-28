@@ -49,7 +49,7 @@ def list_all_sessions(
     Gets all browser sessions for the authenticated user with optional status filtering
 
     Args:
-        status: Optional filter for session status
+        status: Optional filter for session status [active, closed] - this filters the results based on the session status
         api_key: Optional API key to use. If None, will try to get from environment variable.
         base_url: Optional base URL to use. If None, will try to get from environment variable.
 
