@@ -27,7 +27,9 @@ def _get_client() -> AuthenticatedClient:
             "Please set this environment variable with your Aidolon API key."
         )
     
-    return AuthenticatedClient(base_url="https://api.aidolon.com", token=api_key)
+    base_url = os.getenv("AIDOLONS_API_BASE_URL", "https://api.aidolon.com")
+    
+    return AuthenticatedClient(base_url=base_url, token=api_key)
 
 
 def list_all_sessions(
