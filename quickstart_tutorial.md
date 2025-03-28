@@ -22,7 +22,6 @@ Create a `.env` file in your project's root directory with your Aidolon API cred
 ```bash
 # .env file
 AIDOLONS_API_KEY=your_api_key_here
-AIDOLONS_API_BASE_URL=https://api.aidolon.com
 ```
 
 Load these environment variables in your Python script:
@@ -47,7 +46,7 @@ from aidolon_browser_client.browser.browser_session import BrowserSession
 browser = BrowserSession()
 
 # Alternatively, provide API key and base URL explicitly
-# browser = BrowserSession(api_key="your_api_key_here", base_url="https://api.aidolon.com")
+# browser = BrowserSession(api_key="your_api_key_here")
 
 # You can also use the context manager to ensure proper cleanup
 with BrowserSession() as browser:
