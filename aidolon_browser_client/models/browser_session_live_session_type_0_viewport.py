@@ -6,29 +6,45 @@ from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import Union
 
 
 
 
 
 
-T = TypeVar("T", bound="CreateBrowserSessionResponse200LiveSession")
+T = TypeVar("T", bound="BrowserSessionLiveSessionType0Viewport")
 
 
 
 @_attrs_define
-class CreateBrowserSessionResponse200LiveSession:
-    """ Information about the live browser session
-
+class BrowserSessionLiveSessionType0Viewport:
+    """ 
+        Attributes:
+            width (Union[Unset, int]): Viewport width in pixels
+            height (Union[Unset, int]): Viewport height in pixels
      """
 
+    width: Union[Unset, int] = UNSET
+    height: Union[Unset, int] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
 
     def to_dict(self) -> dict[str, Any]:
-        
+        width = self.width
+
+        height = self.height
+
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
+        field_dict.update({
+        })
+        if width is not UNSET:
+            field_dict["width"] = width
+        if height is not UNSET:
+            field_dict["height"] = height
 
         return field_dict
 
@@ -37,12 +53,18 @@ class CreateBrowserSessionResponse200LiveSession:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        create_browser_session_response_200_live_session = cls(
+        width = d.pop("width", UNSET)
+
+        height = d.pop("height", UNSET)
+
+        browser_session_live_session_type_0_viewport = cls(
+            width=width,
+            height=height,
         )
 
 
-        create_browser_session_response_200_live_session.additional_properties = d
-        return create_browser_session_response_200_live_session
+        browser_session_live_session_type_0_viewport.additional_properties = d
+        return browser_session_live_session_type_0_viewport
 
     @property
     def additional_keys(self) -> list[str]:

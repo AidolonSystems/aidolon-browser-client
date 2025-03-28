@@ -11,9 +11,9 @@ from typing import cast
 from typing import Union
 
 if TYPE_CHECKING:
-  from ..models.browser_context_cookies_item import BrowserContextCookiesItem
   from ..models.browser_context_local_storage import BrowserContextLocalStorage
   from ..models.browser_context_session_storage import BrowserContextSessionStorage
+  from ..models.browser_context_cookies_item import BrowserContextCookiesItem
 
 
 
@@ -41,9 +41,9 @@ class BrowserContext:
 
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.browser_context_cookies_item import BrowserContextCookiesItem
         from ..models.browser_context_local_storage import BrowserContextLocalStorage
         from ..models.browser_context_session_storage import BrowserContextSessionStorage
+        from ..models.browser_context_cookies_item import BrowserContextCookiesItem
         cookies: Union[Unset, list[dict[str, Any]]] = UNSET
         if not isinstance(self.cookies, Unset):
             cookies = []
@@ -83,9 +83,9 @@ class BrowserContext:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.browser_context_cookies_item import BrowserContextCookiesItem
         from ..models.browser_context_local_storage import BrowserContextLocalStorage
         from ..models.browser_context_session_storage import BrowserContextSessionStorage
+        from ..models.browser_context_cookies_item import BrowserContextCookiesItem
         d = dict(src_dict)
         cookies = []
         _cookies = d.pop("cookies", UNSET)

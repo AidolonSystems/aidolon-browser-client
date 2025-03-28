@@ -16,7 +16,7 @@ from uuid import UUID
 import datetime
 
 if TYPE_CHECKING:
-  from ..models.browser_session_live_session import BrowserSessionLiveSession
+  from ..models.browser_session_live_session_type_0 import BrowserSessionLiveSessionType0
 
 
 
@@ -37,7 +37,7 @@ class BrowserSession:
             updated_at (Union[Unset, datetime.datetime]): When the session was last updated
             last_active_at (Union[Unset, datetime.datetime]): When the session was last active
             closed_at (Union[None, Unset, datetime.datetime]): When the session was closed, if applicable
-            live_session (Union[Unset, BrowserSessionLiveSession]): Information about the live browser session
+            live_session (Union['BrowserSessionLiveSessionType0', None, Unset]): Information about the live browser session
      """
 
     session_id: UUID
@@ -47,12 +47,12 @@ class BrowserSession:
     updated_at: Union[Unset, datetime.datetime] = UNSET
     last_active_at: Union[Unset, datetime.datetime] = UNSET
     closed_at: Union[None, Unset, datetime.datetime] = UNSET
-    live_session: Union[Unset, 'BrowserSessionLiveSession'] = UNSET
+    live_session: Union['BrowserSessionLiveSessionType0', None, Unset] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.browser_session_live_session import BrowserSessionLiveSession
+        from ..models.browser_session_live_session_type_0 import BrowserSessionLiveSessionType0
         session_id = str(self.session_id)
 
         status = self.status.value
@@ -77,9 +77,13 @@ class BrowserSession:
         else:
             closed_at = self.closed_at
 
-        live_session: Union[Unset, dict[str, Any]] = UNSET
-        if not isinstance(self.live_session, Unset):
+        live_session: Union[None, Unset, dict[str, Any]]
+        if isinstance(self.live_session, Unset):
+            live_session = UNSET
+        elif isinstance(self.live_session, BrowserSessionLiveSessionType0):
             live_session = self.live_session.to_dict()
+        else:
+            live_session = self.live_session
 
 
         field_dict: dict[str, Any] = {}
@@ -106,7 +110,7 @@ class BrowserSession:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.browser_session_live_session import BrowserSessionLiveSession
+        from ..models.browser_session_live_session_type_0 import BrowserSessionLiveSessionType0
         d = dict(src_dict)
         session_id = UUID(d.pop("session_id"))
 
@@ -165,14 +169,24 @@ class BrowserSession:
         closed_at = _parse_closed_at(d.pop("closed_at", UNSET))
 
 
-        _live_session = d.pop("live_session", UNSET)
-        live_session: Union[Unset, BrowserSessionLiveSession]
-        if isinstance(_live_session,  Unset):
-            live_session = UNSET
-        else:
-            live_session = BrowserSessionLiveSession.from_dict(_live_session)
+        def _parse_live_session(data: object) -> Union['BrowserSessionLiveSessionType0', None, Unset]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                live_session_type_0 = BrowserSessionLiveSessionType0.from_dict(data)
 
 
+
+                return live_session_type_0
+            except: # noqa: E722
+                pass
+            return cast(Union['BrowserSessionLiveSessionType0', None, Unset], data)
+
+        live_session = _parse_live_session(d.pop("live_session", UNSET))
 
 
         browser_session = cls(

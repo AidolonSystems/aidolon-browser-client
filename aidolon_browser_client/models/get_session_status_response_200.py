@@ -10,12 +10,13 @@ from ..models.get_session_status_response_200_status import GetSessionStatusResp
 from ..types import UNSET, Unset
 from dateutil.parser import isoparse
 from typing import cast
+from typing import cast, Union
 from typing import Union
 from uuid import UUID
 import datetime
 
 if TYPE_CHECKING:
-  from ..models.get_session_status_response_200_live_session import GetSessionStatusResponse200LiveSession
+  from ..models.get_session_status_response_200_live_session_type_0 import GetSessionStatusResponse200LiveSessionType0
 
 
 
@@ -36,8 +37,8 @@ class GetSessionStatusResponse200:
             updated_at (Union[Unset, datetime.datetime]):
             last_active_at (Union[Unset, datetime.datetime]):
             closed_at (Union[Unset, datetime.datetime]):
-            live_session (Union[Unset, GetSessionStatusResponse200LiveSession]): Information about the live browser session
-                (only for active sessions)
+            live_session (Union['GetSessionStatusResponse200LiveSessionType0', None, Unset]): Information about the live
+                browser session (only for active sessions)
      """
 
     success: Union[Unset, bool] = UNSET
@@ -47,12 +48,12 @@ class GetSessionStatusResponse200:
     updated_at: Union[Unset, datetime.datetime] = UNSET
     last_active_at: Union[Unset, datetime.datetime] = UNSET
     closed_at: Union[Unset, datetime.datetime] = UNSET
-    live_session: Union[Unset, 'GetSessionStatusResponse200LiveSession'] = UNSET
+    live_session: Union['GetSessionStatusResponse200LiveSessionType0', None, Unset] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.get_session_status_response_200_live_session import GetSessionStatusResponse200LiveSession
+        from ..models.get_session_status_response_200_live_session_type_0 import GetSessionStatusResponse200LiveSessionType0
         success = self.success
 
         session_id: Union[Unset, str] = UNSET
@@ -80,9 +81,13 @@ class GetSessionStatusResponse200:
         if not isinstance(self.closed_at, Unset):
             closed_at = self.closed_at.isoformat()
 
-        live_session: Union[Unset, dict[str, Any]] = UNSET
-        if not isinstance(self.live_session, Unset):
+        live_session: Union[None, Unset, dict[str, Any]]
+        if isinstance(self.live_session, Unset):
+            live_session = UNSET
+        elif isinstance(self.live_session, GetSessionStatusResponse200LiveSessionType0):
             live_session = self.live_session.to_dict()
+        else:
+            live_session = self.live_session
 
 
         field_dict: dict[str, Any] = {}
@@ -112,7 +117,7 @@ class GetSessionStatusResponse200:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.get_session_status_response_200_live_session import GetSessionStatusResponse200LiveSession
+        from ..models.get_session_status_response_200_live_session_type_0 import GetSessionStatusResponse200LiveSessionType0
         d = dict(src_dict)
         success = d.pop("success", UNSET)
 
@@ -176,14 +181,24 @@ class GetSessionStatusResponse200:
 
 
 
-        _live_session = d.pop("live_session", UNSET)
-        live_session: Union[Unset, GetSessionStatusResponse200LiveSession]
-        if isinstance(_live_session,  Unset):
-            live_session = UNSET
-        else:
-            live_session = GetSessionStatusResponse200LiveSession.from_dict(_live_session)
+        def _parse_live_session(data: object) -> Union['GetSessionStatusResponse200LiveSessionType0', None, Unset]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                live_session_type_0 = GetSessionStatusResponse200LiveSessionType0.from_dict(data)
 
 
+
+                return live_session_type_0
+            except: # noqa: E722
+                pass
+            return cast(Union['GetSessionStatusResponse200LiveSessionType0', None, Unset], data)
+
+        live_session = _parse_live_session(d.pop("live_session", UNSET))
 
 
         get_session_status_response_200 = cls(

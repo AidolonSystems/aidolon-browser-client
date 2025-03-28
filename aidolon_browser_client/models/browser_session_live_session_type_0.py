@@ -11,36 +11,36 @@ from typing import cast
 from typing import Union
 
 if TYPE_CHECKING:
-  from ..models.browser_session_live_session_viewport import BrowserSessionLiveSessionViewport
+  from ..models.browser_session_live_session_type_0_viewport import BrowserSessionLiveSessionType0Viewport
 
 
 
 
 
-T = TypeVar("T", bound="BrowserSessionLiveSession")
+T = TypeVar("T", bound="BrowserSessionLiveSessionType0")
 
 
 
 @_attrs_define
-class BrowserSessionLiveSession:
+class BrowserSessionLiveSessionType0:
     """ Information about the live browser session
 
         Attributes:
             url (Union[Unset, str]): Current URL of the browser
             title (Union[Unset, str]): Current page title
             is_loading (Union[Unset, bool]): Whether the page is currently loading
-            viewport (Union[Unset, BrowserSessionLiveSessionViewport]):
+            viewport (Union[Unset, BrowserSessionLiveSessionType0Viewport]):
      """
 
     url: Union[Unset, str] = UNSET
     title: Union[Unset, str] = UNSET
     is_loading: Union[Unset, bool] = UNSET
-    viewport: Union[Unset, 'BrowserSessionLiveSessionViewport'] = UNSET
+    viewport: Union[Unset, 'BrowserSessionLiveSessionType0Viewport'] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.browser_session_live_session_viewport import BrowserSessionLiveSessionViewport
+        from ..models.browser_session_live_session_type_0_viewport import BrowserSessionLiveSessionType0Viewport
         url = self.url
 
         title = self.title
@@ -71,7 +71,7 @@ class BrowserSessionLiveSession:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.browser_session_live_session_viewport import BrowserSessionLiveSessionViewport
+        from ..models.browser_session_live_session_type_0_viewport import BrowserSessionLiveSessionType0Viewport
         d = dict(src_dict)
         url = d.pop("url", UNSET)
 
@@ -80,16 +80,16 @@ class BrowserSessionLiveSession:
         is_loading = d.pop("is_loading", UNSET)
 
         _viewport = d.pop("viewport", UNSET)
-        viewport: Union[Unset, BrowserSessionLiveSessionViewport]
+        viewport: Union[Unset, BrowserSessionLiveSessionType0Viewport]
         if isinstance(_viewport,  Unset):
             viewport = UNSET
         else:
-            viewport = BrowserSessionLiveSessionViewport.from_dict(_viewport)
+            viewport = BrowserSessionLiveSessionType0Viewport.from_dict(_viewport)
 
 
 
 
-        browser_session_live_session = cls(
+        browser_session_live_session_type_0 = cls(
             url=url,
             title=title,
             is_loading=is_loading,
@@ -97,8 +97,8 @@ class BrowserSessionLiveSession:
         )
 
 
-        browser_session_live_session.additional_properties = d
-        return browser_session_live_session
+        browser_session_live_session_type_0.additional_properties = d
+        return browser_session_live_session_type_0
 
     @property
     def additional_keys(self) -> list[str]:

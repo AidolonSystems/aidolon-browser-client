@@ -5,8 +5,8 @@ from .browser_context_cookies_item import BrowserContextCookiesItem
 from .browser_context_local_storage import BrowserContextLocalStorage
 from .browser_context_session_storage import BrowserContextSessionStorage
 from .browser_session import BrowserSession
-from .browser_session_live_session import BrowserSessionLiveSession
-from .browser_session_live_session_viewport import BrowserSessionLiveSessionViewport
+from .browser_session_live_session_type_0 import BrowserSessionLiveSessionType0
+from .browser_session_live_session_type_0_viewport import BrowserSessionLiveSessionType0Viewport
 from .browser_session_status import BrowserSessionStatus
 from .click_element_body import ClickElementBody
 from .click_element_body_wait import ClickElementBodyWait
@@ -15,7 +15,7 @@ from .close_all_browser_sessions_response_200 import CloseAllBrowserSessionsResp
 from .close_browser_session_response_200 import CloseBrowserSessionResponse200
 from .create_browser_session_body import CreateBrowserSessionBody
 from .create_browser_session_response_200 import CreateBrowserSessionResponse200
-from .create_browser_session_response_200_live_session import CreateBrowserSessionResponse200LiveSession
+from .create_browser_session_response_200_live_session_type_0 import CreateBrowserSessionResponse200LiveSessionType0
 from .create_browser_session_response_402 import CreateBrowserSessionResponse402
 from .create_browser_session_response_402_details import CreateBrowserSessionResponse402Details
 from .drag_and_drop_body import DragAndDropBody
@@ -26,7 +26,7 @@ from .generate_pdf_response_200 import GeneratePdfResponse200
 from .generate_pdf_response_200_data import GeneratePdfResponse200Data
 from .get_browser_context_response_200 import GetBrowserContextResponse200
 from .get_session_status_response_200 import GetSessionStatusResponse200
-from .get_session_status_response_200_live_session import GetSessionStatusResponse200LiveSession
+from .get_session_status_response_200_live_session_type_0 import GetSessionStatusResponse200LiveSessionType0
 from .get_session_status_response_200_status import GetSessionStatusResponse200Status
 from .list_browser_sessions_response_200 import ListBrowserSessionsResponse200
 from .list_browser_sessions_status import ListBrowserSessionsStatus
@@ -58,8 +58,8 @@ __all__ = (
     "BrowserContextLocalStorage",
     "BrowserContextSessionStorage",
     "BrowserSession",
-    "BrowserSessionLiveSession",
-    "BrowserSessionLiveSessionViewport",
+    "BrowserSessionLiveSessionType0",
+    "BrowserSessionLiveSessionType0Viewport",
     "BrowserSessionStatus",
     "ClickElementBody",
     "ClickElementBodyWait",
@@ -68,7 +68,7 @@ __all__ = (
     "CloseBrowserSessionResponse200",
     "CreateBrowserSessionBody",
     "CreateBrowserSessionResponse200",
-    "CreateBrowserSessionResponse200LiveSession",
+    "CreateBrowserSessionResponse200LiveSessionType0",
     "CreateBrowserSessionResponse402",
     "CreateBrowserSessionResponse402Details",
     "DragAndDropBody",
@@ -79,7 +79,7 @@ __all__ = (
     "GeneratePdfResponse200Data",
     "GetBrowserContextResponse200",
     "GetSessionStatusResponse200",
-    "GetSessionStatusResponse200LiveSession",
+    "GetSessionStatusResponse200LiveSessionType0",
     "GetSessionStatusResponse200Status",
     "ListBrowserSessionsResponse200",
     "ListBrowserSessionsStatus",

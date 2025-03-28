@@ -12,13 +12,13 @@ from ..types import UNSET, Unset
 
 
 
-T = TypeVar("T", bound="GetSessionStatusResponse200LiveSession")
+T = TypeVar("T", bound="CreateBrowserSessionResponse200LiveSessionType0")
 
 
 
 @_attrs_define
-class GetSessionStatusResponse200LiveSession:
-    """ Information about the live browser session (only for active sessions)
+class CreateBrowserSessionResponse200LiveSessionType0:
+    """ Information about the live browser session
 
      """
 
@@ -37,12 +37,12 @@ class GetSessionStatusResponse200LiveSession:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        get_session_status_response_200_live_session = cls(
+        create_browser_session_response_200_live_session_type_0 = cls(
         )
 
 
-        get_session_status_response_200_live_session.additional_properties = d
-        return get_session_status_response_200_live_session
+        create_browser_session_response_200_live_session_type_0.additional_properties = d
+        return create_browser_session_response_200_live_session_type_0
 
     @property
     def additional_keys(self) -> list[str]:
