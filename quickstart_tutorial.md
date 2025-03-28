@@ -59,22 +59,36 @@ with BrowserSession() as browser:
 Navigate to Google using the `navigate` method:
 
 ```python
-# Navigate to Google
+# Navigate to Google using a full URL
 browser.navigate("https://www.google.com")
+
+# Or use smart URLs with plain language (AI-powered)
+browser.navigate("google")
 ```
+
+Aidolon browser features smart URLs that understand plain language. You can simply specify the name of the website you want to visit, and the AI will interpret your intent.
 
 ## 4. Interacting with Page Elements
 
 Search for "donuts" on Google:
 
 ```python
-# Type "donuts" in the search box
-# The CSS selector targets Google's search input field
+# Type "donuts" in the search box using a CSS selector
 browser.type("input[name='q']", "donuts")
+
+# Or use smart selectors with plain language (AI-powered)
+browser.type("the search box", "donuts")
 
 # Press Enter to submit the search
 browser.press("input[name='q']", "Enter")
+
+# Or use natural language for keys
+browser.press("the search box", "return")  # "enter", "return", etc. all work
 ```
+
+Aidolon browser supports smart selectors that understand plain language descriptions of elements. Instead of writing complex CSS selectors, you can describe what you're looking for, such as "the search box" or "the submit button," and the AI will find the appropriate element.
+
+The `press` function also accepts natural language key names like "delete", "del", "ctrl", "control", "enter", or "return" - the AI understands what you mean.
 
 ## 5. Taking a Screenshot
 
@@ -161,7 +175,5 @@ If you encounter issues:
 
 1. Verify your API key is correct
 2. Check your network connection
-3. Ensure you're using the correct selectors for page elements
-4. Review the Aidolon documentation for any API changes
-
-For more detailed information, refer to the official Aidolon documentation.
+3. Ensure your selectors or descriptions are clear
+4. Try using more specific language if smart selectors aren't finding the right elements
