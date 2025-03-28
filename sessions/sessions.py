@@ -11,23 +11,29 @@ from aidolon_browser_client.models.list_browser_sessions_status import ListBrows
 from aidolon_browser_client.types import UNSET, Unset
 
 
-def _get_client() -> AuthenticatedClient:
-    """Create and return an authenticated client using the API key from environment variables.
+def _get_client(api_key: Optional[str] = None, base_url: Optional[str] = None) -> AuthenticatedClient:
+    """Create and return an authenticated client using the provided API key or from environment variables.
+    
+    Args:
+        api_key: Optional API key to use. If None, will try to get from environment variable.
+        base_url: Optional base URL to use. If None, will try to get from environment variable.
     
     Returns:
         An authenticated client instance
         
     Raises:
-        ValueError: If the AIDOLONS_API_KEY environment variable is not set
+        ValueError: If no API key is provided and AIDOLONS_API_KEY environment variable is not set
     """
-    api_key = os.getenv("AIDOLONS_API_KEY")
     if not api_key:
-        raise ValueError(
-            "AIDOLONS_API_KEY environment variable is not set. "
-            "Please set this environment variable with your Aidolon API key."
-        )
+        api_key = os.getenv("AIDOLONS_API_KEY")
+        if not api_key:
+            raise ValueError(
+                "AIDOLONS_API_KEY environment variable is not set and no API key was provided. "
+                "Please provide an API key or set the environment variable."
+            )
     
-    base_url = os.getenv("AIDOLONS_API_BASE_URL", "https://api.aidolon.com")
+    if not base_url:
+        base_url = os.getenv("AIDOLONS_API_BASE_URL", "https://api.aidolon.com")
     
     return AuthenticatedClient(base_url=base_url, token=api_key)
 
@@ -35,6 +41,8 @@ def _get_client() -> AuthenticatedClient:
 def list_all_sessions(
     *,
     status: Union[Unset, ListBrowserSessionsStatus] = UNSET,
+    api_key: Optional[str] = None,
+    base_url: Optional[str] = None,
 ) -> Optional[Union[Error, ListBrowserSessionsResponse200]]:
     """List all browser sessions
 
@@ -42,27 +50,37 @@ def list_all_sessions(
 
     Args:
         status: Optional filter for session status
+        api_key: Optional API key to use. If None, will try to get from environment variable.
+        base_url: Optional base URL to use. If None, will try to get from environment variable.
 
     Returns:
         The response model containing session information or an error
         
     Raises:
-        ValueError: If the AIDOLONS_API_KEY environment variable is not set
+        ValueError: If no API key is provided and AIDOLONS_API_KEY environment variable is not set
     """
-    client = _get_client()
+    client = _get_client(api_key=api_key, base_url=base_url)
     return list_sync(client=client, status=status)
 
 
-def close_all_sessions() -> Optional[Union[CloseAllBrowserSessionsResponse200, Error]]:
+def close_all_sessions(
+    *,
+    api_key: Optional[str] = None,
+    base_url: Optional[str] = None,
+) -> Optional[Union[CloseAllBrowserSessionsResponse200, Error]]:
     """Close all browser sessions
 
     Closes all active browser sessions for the authenticated user
+
+    Args:
+        api_key: Optional API key to use. If None, will try to get from environment variable.
+        base_url: Optional base URL to use. If None, will try to get from environment variable.
 
     Returns:
         The response model confirming sessions were closed or an error
         
     Raises:
-        ValueError: If the AIDOLONS_API_KEY environment variable is not set
+        ValueError: If no API key is provided and AIDOLONS_API_KEY environment variable is not set
     """
-    client = _get_client()
+    client = _get_client(api_key=api_key, base_url=base_url)
     return close_all_sync(client=client)
