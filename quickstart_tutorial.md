@@ -167,6 +167,34 @@ with BrowserSession() as browser:
     # The browser session is automatically closed when exiting the with block
 ```
 
+If you prefer, you can manage the session manually:
+
+```python
+import os
+from dotenv import load_dotenv
+from aidolon_browser_client.browser.browser_session import BrowserSession
+
+# Load environment variables
+load_dotenv()
+
+# Manual session management
+browser = BrowserSession()
+try:
+    # Navigate to Google using smart URL
+    browser.navigate("google")
+    
+    # Search for donuts using smart selectors
+    browser.type("the search box", "donuts")
+    browser.press("the search box", "enter")
+    
+    # Take a screenshot
+    screenshot_result = browser.take_screenshot(full_page=True)
+    print(f"Screenshot taken. URL: {screenshot_result.get('data', {}).get('screenshot_url')}")
+finally:
+    # Always close the session when done to release resources
+    browser.close_session()
+```
+
 ## Additional Features
 
 The Aidolon Browser Client offers many more features beyond this basic example:
