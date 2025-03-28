@@ -23,6 +23,7 @@ from .drag_and_drop_response_200 import DragAndDropResponse200
 from .error import Error
 from .generate_pdf_body import GeneratePdfBody
 from .generate_pdf_response_200 import GeneratePdfResponse200
+from .generate_pdf_response_200_data import GeneratePdfResponse200Data
 from .get_browser_context_response_200 import GetBrowserContextResponse200
 from .get_session_status_response_200 import GetSessionStatusResponse200
 from .get_session_status_response_200_live_session import GetSessionStatusResponse200LiveSession
@@ -45,6 +46,7 @@ from .scrape_page_response_200_data import ScrapePageResponse200Data
 from .scrape_page_response_200_data_json import ScrapePageResponse200DataJson
 from .take_screenshot_body import TakeScreenshotBody
 from .take_screenshot_response_200 import TakeScreenshotResponse200
+from .take_screenshot_response_200_data import TakeScreenshotResponse200Data
 from .type_text_body import TypeTextBody
 from .type_text_response_200 import TypeTextResponse200
 from .update_session_timeout_body import UpdateSessionTimeoutBody
@@ -74,6 +76,7 @@ __all__ = (
     "Error",
     "GeneratePdfBody",
     "GeneratePdfResponse200",
+    "GeneratePdfResponse200Data",
     "GetBrowserContextResponse200",
     "GetSessionStatusResponse200",
     "GetSessionStatusResponse200LiveSession",
@@ -96,6 +99,7 @@ __all__ = (
     "ScrapePageResponse200DataJson",
     "TakeScreenshotBody",
     "TakeScreenshotResponse200",
+    "TakeScreenshotResponse200Data",
     "TypeTextBody",
     "TypeTextResponse200",
     "UpdateSessionTimeoutBody",

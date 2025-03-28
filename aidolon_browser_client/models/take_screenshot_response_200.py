@@ -7,8 +7,11 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 from ..types import UNSET, Unset
+from typing import cast
 from typing import Union
 
+if TYPE_CHECKING:
+  from ..models.take_screenshot_response_200_data import TakeScreenshotResponse200Data
 
 
 
@@ -24,21 +27,24 @@ class TakeScreenshotResponse200:
         Attributes:
             success (Union[Unset, bool]):  Example: True.
             action (Union[Unset, str]):  Example: screenshot.
-            data (Union[Unset, str]): Base64-encoded screenshot image data
+            data (Union[Unset, TakeScreenshotResponse200Data]):
      """
 
     success: Union[Unset, bool] = UNSET
     action: Union[Unset, str] = UNSET
-    data: Union[Unset, str] = UNSET
+    data: Union[Unset, 'TakeScreenshotResponse200Data'] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
 
     def to_dict(self) -> dict[str, Any]:
+        from ..models.take_screenshot_response_200_data import TakeScreenshotResponse200Data
         success = self.success
 
         action = self.action
 
-        data = self.data
+        data: Union[Unset, dict[str, Any]] = UNSET
+        if not isinstance(self.data, Unset):
+            data = self.data.to_dict()
 
 
         field_dict: dict[str, Any] = {}
@@ -58,12 +64,21 @@ class TakeScreenshotResponse200:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        from ..models.take_screenshot_response_200_data import TakeScreenshotResponse200Data
         d = dict(src_dict)
         success = d.pop("success", UNSET)
 
         action = d.pop("action", UNSET)
 
-        data = d.pop("data", UNSET)
+        _data = d.pop("data", UNSET)
+        data: Union[Unset, TakeScreenshotResponse200Data]
+        if isinstance(_data,  Unset):
+            data = UNSET
+        else:
+            data = TakeScreenshotResponse200Data.from_dict(_data)
+
+
+
 
         take_screenshot_response_200 = cls(
             success=success,

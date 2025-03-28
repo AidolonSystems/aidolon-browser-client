@@ -6,29 +6,45 @@ from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import Union
 
 
 
 
 
 
-T = TypeVar("T", bound="ScrapeInformationResponse200Data")
+T = TypeVar("T", bound="TakeScreenshotResponse200Data")
 
 
 
 @_attrs_define
-class ScrapeInformationResponse200Data:
-    """ The scraped information (structure varies based on content)
-
+class TakeScreenshotResponse200Data:
+    """ 
+        Attributes:
+            url (Union[Unset, str]): The URL of the page that was captured
+            screenshot_url (Union[Unset, str]): URL to access the screenshot image
      """
 
+    url: Union[Unset, str] = UNSET
+    screenshot_url: Union[Unset, str] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
 
     def to_dict(self) -> dict[str, Any]:
-        
+        url = self.url
+
+        screenshot_url = self.screenshot_url
+
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
+        field_dict.update({
+        })
+        if url is not UNSET:
+            field_dict["url"] = url
+        if screenshot_url is not UNSET:
+            field_dict["screenshot_url"] = screenshot_url
 
         return field_dict
 
@@ -37,12 +53,18 @@ class ScrapeInformationResponse200Data:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        scrape_information_response_200_data = cls(
+        url = d.pop("url", UNSET)
+
+        screenshot_url = d.pop("screenshot_url", UNSET)
+
+        take_screenshot_response_200_data = cls(
+            url=url,
+            screenshot_url=screenshot_url,
         )
 
 
-        scrape_information_response_200_data.additional_properties = d
-        return scrape_information_response_200_data
+        take_screenshot_response_200_data.additional_properties = d
+        return take_screenshot_response_200_data
 
     @property
     def additional_keys(self) -> list[str]:
