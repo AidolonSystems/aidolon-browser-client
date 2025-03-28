@@ -40,7 +40,7 @@ def _get_client(api_key: Optional[str] = None, base_url: Optional[str] = None) -
 
 def list_all_sessions(
     *,
-    status: Union[Unset, ListBrowserSessionsStatus] = UNSET,
+    status: Optional[str] = None,
     api_key: Optional[str] = None,
     base_url: Optional[str] = None,
 ) -> Optional[Union[Error, ListBrowserSessionsResponse200]]:
@@ -49,7 +49,8 @@ def list_all_sessions(
     Gets all browser sessions for the authenticated user with optional status filtering
 
     Args:
-        status: Optional filter for session status [active, closed] - this filters the results based on the session status
+        status: Optional string to filter sessions by status. Supported values: "active", "closed".
+               If None or not provided, all sessions will be returned.
         api_key: Optional API key to use. If None, will try to get from environment variable.
         base_url: Optional base URL to use. If None, will try to get from environment variable.
 
@@ -58,9 +59,21 @@ def list_all_sessions(
         
     Raises:
         ValueError: If no API key is provided and AIDOLONS_API_KEY environment variable is not set
+                   or if an invalid status is provided
     """
     client = _get_client(api_key=api_key, base_url=base_url)
-    return list_sync(client=client, status=status)
+    
+    # Convert string status to enum if provided
+    status_enum = UNSET
+    if status is not None:
+        if status.lower() == "active":
+            status_enum = ListBrowserSessionsStatus.ACTIVE
+        elif status.lower() == "closed":
+            status_enum = ListBrowserSessionsStatus.CLOSED
+        else:
+            raise ValueError(f"Invalid status: {status}. Supported values are 'active' and 'closed'")
+    
+    return list_sync(client=client, status=status_enum)
 
 
 def close_all_sessions(
