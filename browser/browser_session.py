@@ -194,7 +194,7 @@ class BrowserSession:
             full_page: Whether to capture the full page or just the viewport.
             
         Returns:
-            Response containing base64-encoded screenshot data.
+            Response containing url of captured image.
         """
         if not self.session_id:
             raise Exception("No active browser session.")
@@ -290,7 +290,7 @@ class BrowserSession:
             delay: Delay in seconds before generating the PDF.
             
         Returns:
-            Response containing base64-encoded PDF data.
+            Response containing url of PDF.
         """
         if not self.session_id:
             raise Exception("No active browser session.")
