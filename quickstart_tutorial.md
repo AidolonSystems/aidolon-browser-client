@@ -66,7 +66,7 @@ browser.navigate("https://www.google.com")
 browser.navigate("google")
 ```
 
-Aidolon browser features smart URLs that understand plain language. You can simply specify the name of the website you want to visit, and the AI will interpret your intent.
+Aidolon browser features smart URLs that understand plain language. You can simply specify the name of the website you want to visit, and the AI will interpret your intent. Standard URLs will always work precisely as expected, while smart URLs provide convenience at the cost of a small amount of AI credits.
 
 ## 4. Interacting with Page Elements
 
@@ -87,6 +87,8 @@ browser.press("the search box", "return")  # "enter", "return", etc. all work
 ```
 
 Aidolon browser supports smart selectors that understand plain language descriptions of elements. Instead of writing complex CSS selectors, you can describe what you're looking for, such as "the search box" or "the submit button," and the AI will find the appropriate element.
+
+Traditional CSS and XPath selectors still work perfectly when you need precision or have existing selectors. Smart selectors use AI credits, though the calls are efficient and the cost per selector is minimal.
 
 The `press` function also accepts natural language key names like "delete", "del", "ctrl", "control", "enter", or "return" - the AI understands what you mean.
 
