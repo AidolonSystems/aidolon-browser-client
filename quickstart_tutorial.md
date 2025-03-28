@@ -15,19 +15,14 @@ pip install aidolon-browser-client
 Initialize the client with your API key. You can provide it directly or set it in your environment:
 
 ```python
-from aidolon_browser_client import AuthenticatedClient
+from aidolon_browser_client import Client
 
 # Option 1: Initialize with explicit API key
-client = AuthenticatedClient(
-    base_url="https://api.aidolon.com",  # Replace with your API endpoint
-    token="your_api_key_here"
-)
+client = Client(api_key="your_api_key_here")
 
-# Option 2: Initialize using API_KEY from environment
+# Option 2: Initialize using AIDOLONS_API_KEY from .env file
 # The client will automatically use this environment variable if set
-client = AuthenticatedClient(
-    base_url="https://api.aidolon.com"  # Replace with your API endpoint
-)
+client = Client()
 ```
 
 ## Creating a Browser Session
@@ -35,23 +30,14 @@ client = AuthenticatedClient(
 First, create a new browser session:
 
 ```python
-from aidolon_browser_client.api.session_management import create_browser_session
-from aidolon_browser_client.models import CreateBrowserSessionBody
-
-# Create session request body
-session_body = CreateBrowserSessionBody(
+# Create a new browser session
+session = client.create_browser_session(
     visible=True,  # Make browser visible
     timeout=300    # Session timeout in seconds
 )
 
-# Create a new browser session
-response = create_browser_session.sync(
-    client=client,
-    body=session_body
-)
-
 # Get the session ID for subsequent operations
-session_id = response.session_id
+session_id = session["session_id"]
 ```
 
 ## Navigating to a Website
@@ -59,17 +45,10 @@ session_id = response.session_id
 Navigate to Google:
 
 ```python
-from aidolon_browser_client.api.browser_actions import navigate_browser
-from aidolon_browser_client.models import NavigateBrowserBody
-
-# Create navigation request body
-navigate_body = NavigateBrowserBody(url="https://www.google.com")
-
 # Navigate to Google
-navigate_browser.sync(
-    client=client,
+client.navigate(
     session_id=session_id,
-    body=navigate_body
+    url="https://www.google.com"
 )
 ```
 
@@ -81,27 +60,17 @@ Aidolon Browser Client supports two types of selectors:
 Smart Selectors use natural language descriptions that AI can understand:
 
 ```python
-from aidolon_browser_client.api.browser_actions import type_text, press_key
-from aidolon_browser_client.models import TypeTextBody, PressKeyBody
-
 # Type "donuts" into the search bar using a Smart Selector
-type_text.sync(
-    client=client,
+client.type_text(
     session_id=session_id,
-    body=TypeTextBody(
-        selector="the search input",  # Smart Selector - AI understands this!
-        text="donuts"
-    )
+    selector="the search input",  # Smart Selector - AI understands this!
+    text="donuts"
 )
 
 # Press Enter to search
-press_key.sync(
-    client=client,
+client.press_key(
     session_id=session_id,
-    body=PressKeyBody(
-        selector="the search input",
-        key="Enter"
-    )
+    key="Enter"
 )
 ```
 
@@ -109,27 +78,18 @@ press_key.sync(
 You can also use standard CSS or XPath selectors when you need precise control:
 
 ```python
-from aidolon_browser_client.api.browser_actions import type_text, click_element
-from aidolon_browser_client.models import TypeTextBody, ClickElementBody, ClickElementBodyWait
-
 # Using a CSS selector
-type_text.sync(
-    client=client,
+client.type_text(
     session_id=session_id,
-    body=TypeTextBody(
-        selector="input[name='q']",  # Standard CSS selector
-        text="donuts"
-    )
+    selector="input[name='q']",  # Standard CSS selector
+    text="donuts"
 )
 
 # Using an XPath selector
-click_element.sync(
-    client=client,
+client.click(
     session_id=session_id,
-    body=ClickElementBody(
-        selector="//button[@type='submit']",  # XPath selector
-        wait=ClickElementBodyWait.AUTO
-    )
+    selector="//button[@type='submit']",  # XPath selector
+    wait=True
 )
 ```
 
@@ -138,21 +98,15 @@ click_element.sync(
 Wait for the search results to load, then click the first result:
 
 ```python
-import time
-from aidolon_browser_client.api.browser_actions import click_element
-from aidolon_browser_client.models import ClickElementBody, ClickElementBodyWait
-
 # Wait a moment for search results to load
+import time
 time.sleep(2)
 
 # Click the first search result using a Smart Selector
-click_element.sync(
-    client=client,
+client.click(
     session_id=session_id,
-    body=ClickElementBody(
-        selector="the first search result",  # Smart Selector
-        wait=ClickElementBodyWait.AUTO  # Wait for navigation to complete
-    )
+    selector="the first search result",  # Smart Selector
+    wait=True  # Wait for navigation to complete
 )
 ```
 
@@ -161,20 +115,16 @@ click_element.sync(
 Capture what you're seeing:
 
 ```python
-from aidolon_browser_client.api.content_extraction import take_screenshot
-from aidolon_browser_client.models import TakeScreenshotBody
-
 # Take a screenshot
-screenshot_response = take_screenshot.sync(
-    client=client,
+screenshot = client.take_screenshot(
     session_id=session_id,
-    body=TakeScreenshotBody(full_page=True)  # Capture the entire page
+    full_page=True  # Capture the entire page
 )
 
 # Save the screenshot
 import base64
 with open("donut_page.png", "wb") as f:
-    f.write(base64.b64decode(screenshot_response.data.image))
+    f.write(base64.b64decode(screenshot["data"]["image"]))
     
 print(f"Screenshot saved to donut_page.png")
 ```
@@ -184,10 +134,8 @@ print(f"Screenshot saved to donut_page.png")
 Always close your session when finished:
 
 ```python
-from aidolon_browser_client.api.session_management import close_browser_session
-
 # Always remember to close the session when done
-close_browser_session.sync(client=client, session_id=session_id)
+client.close_session(session_id=session_id)
 ```
 
 ## Selector Examples
@@ -217,7 +165,7 @@ You can also use precise CSS and XPath selectors:
 2. Choose the right selector for your needs:
    - Smart Selectors for convenience and readability
    - Traditional selectors for precision when needed
-3. Consider using `wait` options after clicks that trigger navigation 
+3. Consider using `wait=True` after clicks that trigger navigation 
 4. Handle potential errors with try/except blocks
 5. Use descriptive Smart Selectors that uniquely identify elements
 
@@ -230,4 +178,4 @@ If you encounter issues:
    - If Smart Selectors aren't working well, try more specific descriptions
    - Fall back to traditional CSS/XPath selectors for precise targeting
 4. Review the documentation for correct parameter usage
-5. Use the scrape_page API to help debug what the browser is seeing
+5. Use `client.scrape_page()` to help debug what the browser is seeing
