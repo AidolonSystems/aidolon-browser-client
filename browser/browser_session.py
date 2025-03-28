@@ -1,5 +1,5 @@
 from uuid import UUID
-from typing import Optional, Union
+from typing import Optional, Union, List
 
 from aidolon_browser_client import AuthenticatedClient
 from aidolon_browser_client.api.session_management import (
@@ -10,7 +10,14 @@ from aidolon_browser_client.api.browser_actions import (
     click_element,
     type_text,
     navigate_browser,
-    press_key
+    press_key,
+    drag_and_drop
+)
+from aidolon_browser_client.api.content_extraction import (
+    take_screenshot,
+    scrape_information,
+    scrape_page,
+    generate_pdf
 )
 from aidolon_browser_client.models import (
     CreateBrowserSessionBody,
@@ -18,7 +25,15 @@ from aidolon_browser_client.models import (
     ClickElementBodyWait,
     TypeTextBody,
     NavigateBrowserBody,
-    PressKeyBody
+    PressKeyBody,
+    PressKeyBodyWait,
+    DragAndDropBody,
+    TakeScreenshotBody,
+    ScrapeInformationBody,
+    ScrapeInformationBodyLevelOfDetail,
+    ScrapePageBody,
+    ScrapePageBodyFormatItem,
+    GeneratePdfBody
 )
 from aidolon_browser_client.models.error import Error
 
@@ -120,19 +135,23 @@ class BrowserSession:
         print(f"Typed text: {text}")
         return response
     
-    def press(self, selector: str, key: str):
+    def press(self, selector: str, key: str, wait: str = "auto"):
         """Press a key on an element.
         
         Args:
             selector: CSS selector, XPath, or natural language description.
             key: Key to press (e.g., "Enter", "Tab").
+            wait: Wait strategy ("auto", "navigation", "network", "none").
         """
         if not self.session_id:
             raise Exception("No active browser session.")
             
+        wait_enum = getattr(PressKeyBodyWait, wait.upper(), PressKeyBodyWait.AUTO)
+        
         press_body = PressKeyBody(
             selector=selector,
-            key=key
+            key=key,
+            wait=wait_enum
         )
         
         response = press_key.sync(
@@ -142,6 +161,151 @@ class BrowserSession:
         )
         
         print(f"Pressed key: {key}")
+        return response
+    
+    def drag_and_drop(self, source_selector: str, target_selector: str):
+        """Drag and drop an element to a target location.
+        
+        Args:
+            source_selector: CSS selector, XPath, or natural language description of the element to drag.
+            target_selector: CSS selector, XPath, or natural language description of the drop target.
+        """
+        if not self.session_id:
+            raise Exception("No active browser session.")
+            
+        drag_body = DragAndDropBody(
+            source_selector=source_selector,
+            target_selector=target_selector
+        )
+        
+        response = drag_and_drop.sync(
+            client=self.client,
+            session_id=self.session_id,
+            body=drag_body
+        )
+        
+        print(f"Dragged from {source_selector} to {target_selector}")
+        return response
+    
+    def take_screenshot(self, full_page: bool = True):
+        """Take a screenshot of the current page.
+        
+        Args:
+            full_page: Whether to capture the full page or just the viewport.
+            
+        Returns:
+            Response containing base64-encoded screenshot data.
+        """
+        if not self.session_id:
+            raise Exception("No active browser session.")
+            
+        screenshot_body = TakeScreenshotBody(
+            full_page=full_page
+        )
+        
+        response = take_screenshot.sync(
+            client=self.client,
+            session_id=self.session_id,
+            body=screenshot_body
+        )
+        
+        print("Screenshot taken.")
+        return response
+    
+    def scrape_information(self, description: str, level_of_detail: str = "full"):
+        """Scrape specific information from the page based on a description.
+        
+        Args:
+            description: Description of what information to extract.
+            level_of_detail: Level of detail to include ("basic", "standard", "full").
+            
+        Returns:
+            Response containing structured data from the page.
+        """
+        if not self.session_id:
+            raise Exception("No active browser session.")
+        
+        detail_enum = getattr(ScrapeInformationBodyLevelOfDetail, level_of_detail.upper(), 
+                             ScrapeInformationBodyLevelOfDetail.FULL)
+            
+        scrape_body = ScrapeInformationBody(
+            description=description,
+            level_of_detail=detail_enum
+        )
+        
+        response = scrape_information.sync(
+            client=self.client,
+            session_id=self.session_id,
+            body=scrape_body
+        )
+        
+        print(f"Information scraped: {description}")
+        return response
+    
+    def scrape_page(self, format_: List[str] = None, delay: float = 0, 
+                   screenshot: bool = False, pdf: bool = False):
+        """Scrape the entire page content in various formats.
+        
+        Args:
+            format_: List of formats to return (e.g., ["html", "text", "json", "markdown"]).
+            delay: Delay in seconds before scraping.
+            screenshot: Whether to include a screenshot.
+            pdf: Whether to include a PDF version.
+            
+        Returns:
+            Response containing the page content in the requested formats.
+        """
+        if not self.session_id:
+            raise Exception("No active browser session.")
+            
+        if format_ is None:
+            format_ = ["html", "text"]
+            
+        format_enums = []
+        for fmt in format_:
+            format_enum = getattr(ScrapePageBodyFormatItem, fmt.upper(), None)
+            if format_enum:
+                format_enums.append(format_enum)
+            
+        scrape_body = ScrapePageBody(
+            format_=format_enums,
+            delay=delay,
+            screenshot=screenshot,
+            pdf=pdf
+        )
+        
+        response = scrape_page.sync(
+            client=self.client,
+            session_id=self.session_id,
+            body=scrape_body
+        )
+        
+        print("Page scraped.")
+        return response
+    
+    def generate_pdf(self, delay: float = 0):
+        """Generate a PDF of the current page.
+        
+        Args:
+            delay: Delay in seconds before generating the PDF.
+            
+        Returns:
+            Response containing base64-encoded PDF data.
+        """
+        if not self.session_id:
+            raise Exception("No active browser session.")
+            
+        pdf_body = GeneratePdfBody(
+            delay=delay
+        )
+        
+        response = generate_pdf.sync(
+            client=self.client,
+            session_id=self.session_id,
+            body=pdf_body
+        )
+        
+        print("PDF generated.")
         return response
     
     def close_session(self):
