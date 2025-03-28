@@ -1,3 +1,4 @@
+import os
 from typing import Optional, Union
 
 from aidolon_browser_client.client import AuthenticatedClient, Client
@@ -10,9 +11,27 @@ from aidolon_browser_client.models.list_browser_sessions_status import ListBrows
 from aidolon_browser_client.types import UNSET, Unset
 
 
+def _get_client() -> AuthenticatedClient:
+    """Create and return an authenticated client using the API key from environment variables.
+    
+    Returns:
+        An authenticated client instance
+        
+    Raises:
+        ValueError: If the AIDOLONS_API_KEY environment variable is not set
+    """
+    api_key = os.getenv("AIDOLONS_API_KEY")
+    if not api_key:
+        raise ValueError(
+            "AIDOLONS_API_KEY environment variable is not set. "
+            "Please set this environment variable with your Aidolon API key."
+        )
+    
+    return AuthenticatedClient(base_url="https://api.aidolon.com", token=api_key)
+
+
 def list_all_sessions(
     *,
-    client: Union[AuthenticatedClient, Client],
     status: Union[Unset, ListBrowserSessionsStatus] = UNSET,
 ) -> Optional[Union[Error, ListBrowserSessionsResponse200]]:
     """List all browser sessions
@@ -20,27 +39,28 @@ def list_all_sessions(
     Gets all browser sessions for the authenticated user with optional status filtering
 
     Args:
-        client: The client instance to use for the request
         status: Optional filter for session status
 
     Returns:
         The response model containing session information or an error
+        
+    Raises:
+        ValueError: If the AIDOLONS_API_KEY environment variable is not set
     """
+    client = _get_client()
     return list_sync(client=client, status=status)
 
 
-def close_all_sessions(
-    *,
-    client: Union[AuthenticatedClient, Client],
-) -> Optional[Union[CloseAllBrowserSessionsResponse200, Error]]:
+def close_all_sessions() -> Optional[Union[CloseAllBrowserSessionsResponse200, Error]]:
     """Close all browser sessions
 
     Closes all active browser sessions for the authenticated user
 
-    Args:
-        client: The client instance to use for the request
-
     Returns:
         The response model confirming sessions were closed or an error
+        
+    Raises:
+        ValueError: If the AIDOLONS_API_KEY environment variable is not set
     """
+    client = _get_client()
     return close_all_sync(client=client)
