@@ -90,7 +90,36 @@ Aidolon browser supports smart selectors that understand plain language descript
 
 The `press` function also accepts natural language key names like "delete", "del", "ctrl", "control", "enter", or "return" - the AI understands what you mean.
 
-## 5. Taking a Screenshot
+## 5. Smart Arguments - AI-Powered Interactions
+
+Aidolon Browser Client leverages AI to understand natural language across all its functions:
+
+- **Smart URLs**: Navigate to websites using plain language
+  ```python
+  browser.navigate("amazon")  # AI understands you want to go to Amazon
+  browser.navigate("news about technology")  # Finds relevant news site
+  ```
+
+- **Smart Selectors**: Describe elements instead of providing technical selectors
+  ```python
+  browser.click("login button")  # Finds and clicks the login button
+  browser.type("username field", "myusername")  # Finds the username input
+  ```
+
+- **Smart Key Commands**: Use intuitive key names
+  ```python
+  browser.press("search box", "enter")  # Press Enter key
+  browser.press("text field", "shift+tab")  # Press key combinations
+  ```
+
+- **Smart Content Extraction**: Describe what information you need
+  ```python
+  browser.scrape_information("product prices and ratings")  # Extract specific data
+  ```
+
+This natural language capability makes browser automation accessible without needing to know complex CSS selectors or exact DOM structures.
+
+## 6. Taking a Screenshot
 
 Capture a screenshot of the search results:
 
@@ -99,7 +128,7 @@ Capture a screenshot of the search results:
 browser.take_screenshot(full_page=True)
 ```
 
-## 6. Closing the Browser Session
+## 7. Closing the Browser Session
 
 Close the session to release resources:
 
@@ -110,7 +139,7 @@ browser.close_session()
 
 ## Complete Example
 
-Here's a complete script that performs all the steps above:
+Here's a complete script that performs all the steps above using smart arguments:
 
 ```python
 import os
@@ -120,35 +149,20 @@ from aidolon_browser_client.browser.browser_session import BrowserSession
 # Load environment variables
 load_dotenv()
 
-# Method 1: Using the context manager (recommended)
+# Using the context manager (recommended)
 with BrowserSession() as browser:
-    # Navigate to Google
-    browser.navigate("https://www.google.com")
+    # Navigate to Google using smart URL
+    browser.navigate("google")
     
-    # Search for donuts
-    browser.type("input[name='q']", "donuts")
-    browser.press("input[name='q']", "Enter")
-    
-    # Take a screenshot
-    screenshot_result = browser.take_screenshot(full_page=True)
-    print(f"Screenshot taken. URL: {screenshot_result.get('data', {}).get('screenshot_url')}")
-
-# Method 2: Manual session management
-browser = BrowserSession()
-try:
-    # Navigate to Google
-    browser.navigate("https://www.google.com")
-    
-    # Search for donuts
-    browser.type("input[name='q']", "donuts")
-    browser.press("input[name='q']", "Enter")
+    # Search for donuts using smart selectors
+    browser.type("the search box", "donuts")
+    browser.press("the search box", "enter")
     
     # Take a screenshot
     screenshot_result = browser.take_screenshot(full_page=True)
     print(f"Screenshot taken. URL: {screenshot_result.get('data', {}).get('screenshot_url')}")
-finally:
-    # Always close the session when done
-    browser.close_session()
+    
+    # The browser session is automatically closed when exiting the with block
 ```
 
 ## Additional Features
