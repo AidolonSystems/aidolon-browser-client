@@ -56,17 +56,19 @@ class BrowserSession:
         self.user_agent = None
         self.timeout = None
         
-        # Create a browser context if provided
-        browser_context = None
+        # Create a browser session with context if provided
         if context is not None:
             browser_context = BrowserContext.from_dict(context)
-            
-        # Create a browser session
-        session_body = CreateBrowserSessionBody(
-            visible=True,
-            timeout=300,
-            context=browser_context
-        )
+            session_body = CreateBrowserSessionBody(
+                visible=True,
+                timeout=300,
+                context=browser_context
+            )
+        else:
+            session_body = CreateBrowserSessionBody(
+                visible=True,
+                timeout=300
+            )
         
         response = create_browser_session.sync(
             client=self.client,
