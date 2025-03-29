@@ -35,17 +35,19 @@ from aidolon_browser_client.models import (
     ScrapeInformationBodyLevelOfDetail,
     ScrapePageBody,
     ScrapePageBodyFormatItem,
-    GeneratePdfBody
+    GeneratePdfBody,
+    BrowserContext
 )
 from aidolon_browser_client.models.error import Error
 
 class BrowserSession:
-    def __init__(self, api_key: Optional[str] = None, base_url: str = "https://api.aidolon.com"):
+    def __init__(self, api_key: Optional[str] = None, base_url: str = "https://api.aidolon.com", context: Optional[Dict[str, Any]] = None):
         """Initialize a browser session with Aidolon.
         
         Args:
             api_key: API key for Aidolon. If None, will try to get from environment variable.
             base_url: Base URL for Aidolon API.
+            context: Optional browser context dictionary (cookies, localStorage, sessionStorage, userAgent).
         """
         self.client = AuthenticatedClient(base_url=base_url, token=api_key) if api_key else AuthenticatedClient(base_url=base_url)
         self.session_id = None
@@ -54,10 +56,16 @@ class BrowserSession:
         self.user_agent = None
         self.timeout = None
         
+        # Create a browser context if provided
+        browser_context = None
+        if context is not None:
+            browser_context = BrowserContext.from_dict(context)
+            
         # Create a browser session
         session_body = CreateBrowserSessionBody(
             visible=True,
-            timeout=300
+            timeout=300,
+            context=browser_context
         )
         
         response = create_browser_session.sync(
@@ -388,14 +396,15 @@ class BrowserSession:
         self.close_session()
 
 
-def create_session(api_key: Optional[str] = None, base_url: str = "https://api.aidolon.com"):
+def create_session(api_key: Optional[str] = None, base_url: str = "https://api.aidolon.com", context: Optional[Dict[str, Any]] = None):
     """Create a new browser session.
     
     Args:
         api_key: API key for Aidolon. If None, will try to get from environment variable.
         base_url: Base URL for Aidolon API.
+        context: Optional browser context dictionary (cookies, localStorage, sessionStorage, userAgent).
     
     Returns:
         BrowserSession object.
     """
-    return BrowserSession(api_key=api_key, base_url=base_url)
+    return BrowserSession(api_key=api_key, base_url=base_url, context=context)
