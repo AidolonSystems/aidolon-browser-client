@@ -92,7 +92,7 @@ Traditional CSS and XPath selectors still work perfectly when you need precision
 
 The `press` function also accepts natural language key names like "delete", "del", "ctrl", "control", "enter", or "return" - the AI understands what you mean.
 
-## 5. Smart Arguments - AI-Powered Interactions
+## 5. Smart Parameters - AI-Powered Interactions
 
 Aidolon Browser Client leverages AI to understand natural language across all its functions:
 
@@ -141,7 +141,7 @@ browser.close_session()
 
 ## Complete Example
 
-Here's a complete script that performs all the steps above using smart arguments:
+Here's a complete script that performs all the steps above using smart parameters:
 
 ```python
 import os

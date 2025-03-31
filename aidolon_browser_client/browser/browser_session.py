@@ -41,6 +41,19 @@ from aidolon_browser_client.models import (
 from aidolon_browser_client.models.error import Error
 
 class BrowserSession:
+
+    """
+    A browser session for interacting with the Aidolon API.
+
+    Attributes:
+        client (AuthenticatedClient): The API client used for requests.
+        session_id (Optional[str]): The unique identifier for the session.
+        live_viewer_url (Optional[str]): URL for the live session viewer.
+        dimensions (Optional[tuple]): Dimensions of the session display.
+        user_agent (Optional[str]): The browser user agent used.
+        timeout (int): Timeout for the session in seconds.
+    """
+    
     def __init__(self, api_key: Optional[str] = None, base_url: str = "https://api.aidolon.com", context: Optional[Dict[str, Any]] = None, timeout: int = 300):
         """Initialize a browser session with Aidolon.
         
@@ -238,7 +251,8 @@ class BrowserSession:
         return response
     
     def scrape_information(self, description: str, level_of_detail: str = "full"):
-        """Scrape specific information from the page based on a description.
+        """Scrape specific information from the page based on a description. This function
+        allows natural language queries to the webpage content.
         
         Args:
             description: Description of what information to extract.
@@ -267,12 +281,12 @@ class BrowserSession:
         print(f"Information scraped: {description}")
         return response
     
-    def scrape_page(self, format_: List[str] = None, delay: float = 0, 
-                   screenshot: bool = False, pdf: bool = False):
+    def scrape_page(self, format: List[str] = None, delay: float = 0,
+                    screenshot: bool = False, pdf: bool = False):
         """Scrape the entire page content in various formats.
         
         Args:
-            format_: List of formats to return (e.g., ["html", "text", "json", "markdown"]).
+            format: List of formats to return (e.g., ["html", "text", "json", "markdown"]).
             delay: Delay in seconds before scraping.
             screenshot: Whether to include a screenshot.
             pdf: Whether to include a PDF version.
@@ -283,11 +297,11 @@ class BrowserSession:
         if not self.session_id:
             raise Exception("No active browser session.")
             
-        if format_ is None:
-            format_ = ["html", "text"]
+        if format is None:
+            format = ["html", "text"]
             
         format_enums = []
-        for fmt in format_:
+        for fmt in format:
             format_enum = getattr(ScrapePageBodyFormatItem, fmt.upper(), None)
             if format_enum:
                 format_enums.append(format_enum)
