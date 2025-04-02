@@ -33,7 +33,7 @@ def _get_client(api_key: Optional[str] = None, base_url: Optional[str] = None) -
             )
     
     if not base_url:
-        base_url = os.getenv("AIDOLONS_API_BASE_URL", "https://api.aidolon.com")
+        base_url = os.getenv("AIDOLONS_API_BASE_URL", "https://api.aidolons.com/api/v1")
     
     return AuthenticatedClient(base_url=base_url, token=api_key)
 
