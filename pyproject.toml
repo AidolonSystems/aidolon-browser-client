@@ -2,12 +2,25 @@
 name = "aidolon-browser-client"
 version = "1.0.0"
 description = "A client library for accessing Aidolon Browser"
-authors = []
+authors = ["Aidolon Systems"]
+license = "MIT"
 readme = "README.md"
+repository = "https://github.com/AidolonSystems/aidolon-browser-client"
+homepage = "https://github.com/AidolonSystems/aidolon-browser-client"
 packages = [
     {include = "aidolon_browser_client"},
 ]
 include = ["CHANGELOG.md", "aidolon_browser_client/py.typed"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Developers",
+    "Topic :: Internet :: WWW/HTTP :: Browsers",
+]
 
 
 [tool.poetry.dependencies]
