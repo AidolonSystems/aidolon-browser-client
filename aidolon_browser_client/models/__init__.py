@@ -38,7 +38,6 @@ from .press_key_response_200 import PressKeyResponse200
 from .scrape_information_body import ScrapeInformationBody
 from .scrape_information_body_level_of_detail import ScrapeInformationBodyLevelOfDetail
 from .scrape_information_response_200 import ScrapeInformationResponse200
-from .scrape_information_response_200_data import ScrapeInformationResponse200Data
 from .scrape_page_body import ScrapePageBody
 from .scrape_page_body_format_item import ScrapePageBodyFormatItem
 from .scrape_page_response_200 import ScrapePageResponse200
@@ -91,7 +90,6 @@ __all__ = (
     "ScrapeInformationBody",
     "ScrapeInformationBodyLevelOfDetail",
     "ScrapeInformationResponse200",
-    "ScrapeInformationResponse200Data",
     "ScrapePageBody",
     "ScrapePageBodyFormatItem",
     "ScrapePageResponse200",

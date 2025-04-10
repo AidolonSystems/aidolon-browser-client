@@ -7,11 +7,8 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 from ..types import UNSET, Unset
-from typing import cast
 from typing import Union
 
-if TYPE_CHECKING:
-  from ..models.scrape_information_response_200_data import ScrapeInformationResponse200Data
 
 
 
@@ -28,28 +25,24 @@ class ScrapeInformationResponse200:
             success (Union[Unset, bool]):  Example: True.
             action (Union[Unset, str]):  Example: scrape_information.
             description (Union[Unset, str]): The description that was provided
-            data (Union[Unset, ScrapeInformationResponse200Data]): The scraped information (structure varies based on
-                content)
+            data (Union[Unset, str]): The scraped information
      """
 
     success: Union[Unset, bool] = UNSET
     action: Union[Unset, str] = UNSET
     description: Union[Unset, str] = UNSET
-    data: Union[Unset, 'ScrapeInformationResponse200Data'] = UNSET
+    data: Union[Unset, str] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.scrape_information_response_200_data import ScrapeInformationResponse200Data
         success = self.success
 
         action = self.action
 
         description = self.description
 
-        data: Union[Unset, dict[str, Any]] = UNSET
-        if not isinstance(self.data, Unset):
-            data = self.data.to_dict()
+        data = self.data
 
 
         field_dict: dict[str, Any] = {}
@@ -71,7 +64,6 @@ class ScrapeInformationResponse200:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.scrape_information_response_200_data import ScrapeInformationResponse200Data
         d = dict(src_dict)
         success = d.pop("success", UNSET)
 
@@ -79,15 +71,7 @@ class ScrapeInformationResponse200:
 
         description = d.pop("description", UNSET)
 
-        _data = d.pop("data", UNSET)
-        data: Union[Unset, ScrapeInformationResponse200Data]
-        if isinstance(_data,  Unset):
-            data = UNSET
-        else:
-            data = ScrapeInformationResponse200Data.from_dict(_data)
-
-
-
+        data = d.pop("data", UNSET)
 
         scrape_information_response_200 = cls(
             success=success,
