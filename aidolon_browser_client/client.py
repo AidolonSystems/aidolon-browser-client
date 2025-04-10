@@ -187,7 +187,7 @@ class AuthenticatedClient:
 
     def __attrs_post_init__(self):
         if self.token is None:
-            self.token = os.getenv("API_KEY")
+            self.token = os.getenv("AIDOLONS_API_KEY")
             if self.token is None:
                 raise ValueError("API key is missing. Please provide it as an argument or set it in the environment.")
 

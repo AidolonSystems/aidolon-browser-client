@@ -1,3 +1,4 @@
+import os
 from uuid import UUID
 from typing import Optional, Union, List, Dict, Any
 
@@ -54,15 +55,20 @@ class BrowserSession:
         timeout (int): Timeout for the session in seconds.
     """
     
-    def __init__(self, api_key: Optional[str] = None, base_url: str = "https://api.aidolon.com", context: Optional[Dict[str, Any]] = None, timeout: int = 300):
-        """Initialize a browser session with Aidolon.
+    def __init__(self, api_key: Optional[str] = None, base_url: str = None, context: Optional[Dict[str, Any]] = None, timeout: int = 300):
+        """Initialize an aidolon browser session.
         
         Args:
-            api_key: API key for Aidolon. If None, will try to get from environment variable.
-            base_url: Base URL for Aidolon API.
+            api_key: API key for Aidolons. If None, will try to get from environment variable.
+            base_url: Base URL for Aidolons API.
             context: Optional browser context dictionary (cookies, localStorage, sessionStorage, userAgent).
             timeout: Session timeout in seconds. Default is 300 seconds (5 minutes).
         """
+        if not base_url:
+            if os.getenv("AIDOLONS_API_BASE_URL"):
+                base_url = os.getenv("AIDOLONS_API_BASE_URL")
+            else:
+                base_url = "https://api.aidolon.com/api/v1"
         self.client = AuthenticatedClient(base_url=base_url, token=api_key) if api_key else AuthenticatedClient(base_url=base_url)
         self.session_id = None
         self.live_viewer_url = None
@@ -279,7 +285,7 @@ class BrowserSession:
         )
         
         print(f"Information scraped: {description}")
-        return response
+        return response.data
     
     def scrape_page(self, format: List[str] = None, delay: float = 0,
                     screenshot: bool = False, pdf: bool = False):
