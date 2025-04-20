@@ -98,7 +98,10 @@ def sync_detailed(
 ) -> Response[Union[Error, ScrapeInformationResponse200]]:
     """ Scrape specific information
 
-     Uses AI to intelligently scrape specific information based on a description
+     Scrape information from the current page based on a description.
+
+    The description is a plain language description that will be
+    processed using LLMs to extract the relevant information.
 
     Args:
         session_id (UUID):
@@ -134,7 +137,10 @@ def sync(
 ) -> Optional[Union[Error, ScrapeInformationResponse200]]:
     """ Scrape specific information
 
-     Uses AI to intelligently scrape specific information based on a description
+     Scrape information from the current page based on a description.
+
+    The description is a plain language description that will be
+    processed using LLMs to extract the relevant information.
 
     Args:
         session_id (UUID):
@@ -165,7 +171,10 @@ async def asyncio_detailed(
 ) -> Response[Union[Error, ScrapeInformationResponse200]]:
     """ Scrape specific information
 
-     Uses AI to intelligently scrape specific information based on a description
+     Scrape information from the current page based on a description.
+
+    The description is a plain language description that will be
+    processed using LLMs to extract the relevant information.
 
     Args:
         session_id (UUID):
@@ -201,7 +210,10 @@ async def asyncio(
 ) -> Optional[Union[Error, ScrapeInformationResponse200]]:
     """ Scrape specific information
 
-     Uses AI to intelligently scrape specific information based on a description
+     Scrape information from the current page based on a description.
+
+    The description is a plain language description that will be
+    processed using LLMs to extract the relevant information.
 
     Args:
         session_id (UUID):

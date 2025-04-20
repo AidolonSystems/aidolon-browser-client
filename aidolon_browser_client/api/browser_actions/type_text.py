@@ -98,7 +98,10 @@ def sync_detailed(
 ) -> Response[Union[Error, TypeTextResponse200]]:
     """ Type text
 
-     Types text into an element identified by CSS selector
+     Type text into an element identified by the selector.
+
+    The selector can be a plain language description
+    which will be converted to a valid selector using LLMs.
 
     Args:
         session_id (UUID):
@@ -134,7 +137,10 @@ def sync(
 ) -> Optional[Union[Error, TypeTextResponse200]]:
     """ Type text
 
-     Types text into an element identified by CSS selector
+     Type text into an element identified by the selector.
+
+    The selector can be a plain language description
+    which will be converted to a valid selector using LLMs.
 
     Args:
         session_id (UUID):
@@ -165,7 +171,10 @@ async def asyncio_detailed(
 ) -> Response[Union[Error, TypeTextResponse200]]:
     """ Type text
 
-     Types text into an element identified by CSS selector
+     Type text into an element identified by the selector.
+
+    The selector can be a plain language description
+    which will be converted to a valid selector using LLMs.
 
     Args:
         session_id (UUID):
@@ -201,7 +210,10 @@ async def asyncio(
 ) -> Optional[Union[Error, TypeTextResponse200]]:
     """ Type text
 
-     Types text into an element identified by CSS selector
+     Type text into an element identified by the selector.
+
+    The selector can be a plain language description
+    which will be converted to a valid selector using LLMs.
 
     Args:
         session_id (UUID):

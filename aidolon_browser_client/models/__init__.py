@@ -8,9 +8,7 @@ from .browser_session import BrowserSession
 from .browser_session_live_session_type_0 import BrowserSessionLiveSessionType0
 from .browser_session_live_session_type_0_viewport import BrowserSessionLiveSessionType0Viewport
 from .browser_session_status import BrowserSessionStatus
-from .click_element_body import ClickElementBody
-from .click_element_body_wait import ClickElementBodyWait
-from .click_element_response_200 import ClickElementResponse200
+from .click_response_200 import ClickResponse200
 from .close_all_browser_sessions_response_200 import CloseAllBrowserSessionsResponse200
 from .close_browser_session_response_200 import CloseBrowserSessionResponse200
 from .create_browser_session_body import CreateBrowserSessionBody
@@ -30,11 +28,9 @@ from .get_session_status_response_200_live_session_type_0 import GetSessionStatu
 from .get_session_status_response_200_status import GetSessionStatusResponse200Status
 from .list_browser_sessions_response_200 import ListBrowserSessionsResponse200
 from .list_browser_sessions_status import ListBrowserSessionsStatus
-from .navigate_browser_body import NavigateBrowserBody
-from .navigate_browser_response_200 import NavigateBrowserResponse200
-from .press_key_body import PressKeyBody
-from .press_key_body_wait import PressKeyBodyWait
-from .press_key_response_200 import PressKeyResponse200
+from .navigate_body import NavigateBody
+from .navigate_response_200 import NavigateResponse200
+from .press_response_200 import PressResponse200
 from .scrape_information_body import ScrapeInformationBody
 from .scrape_information_body_level_of_detail import ScrapeInformationBodyLevelOfDetail
 from .scrape_information_response_200 import ScrapeInformationResponse200
@@ -60,9 +56,7 @@ __all__ = (
     "BrowserSessionLiveSessionType0",
     "BrowserSessionLiveSessionType0Viewport",
     "BrowserSessionStatus",
-    "ClickElementBody",
-    "ClickElementBodyWait",
-    "ClickElementResponse200",
+    "ClickResponse200",
     "CloseAllBrowserSessionsResponse200",
     "CloseBrowserSessionResponse200",
     "CreateBrowserSessionBody",
@@ -82,11 +76,9 @@ __all__ = (
     "GetSessionStatusResponse200Status",
     "ListBrowserSessionsResponse200",
     "ListBrowserSessionsStatus",
-    "NavigateBrowserBody",
-    "NavigateBrowserResponse200",
-    "PressKeyBody",
-    "PressKeyBodyWait",
-    "PressKeyResponse200",
+    "NavigateBody",
+    "NavigateResponse200",
+    "PressResponse200",
     "ScrapeInformationBody",
     "ScrapeInformationBodyLevelOfDetail",
     "ScrapeInformationResponse200",

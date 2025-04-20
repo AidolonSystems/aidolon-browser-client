@@ -98,7 +98,10 @@ def sync_detailed(
 ) -> Response[Union[DragAndDropResponse200, Error]]:
     """ Drag and drop
 
-     Performs a drag and drop operation between two elements
+     Drag an element to another location.
+
+    Both source and target selectors can be plain language descriptions
+    which will be converted to valid selectors using LLMs.
 
     Args:
         session_id (UUID):
@@ -134,7 +137,10 @@ def sync(
 ) -> Optional[Union[DragAndDropResponse200, Error]]:
     """ Drag and drop
 
-     Performs a drag and drop operation between two elements
+     Drag an element to another location.
+
+    Both source and target selectors can be plain language descriptions
+    which will be converted to valid selectors using LLMs.
 
     Args:
         session_id (UUID):
@@ -165,7 +171,10 @@ async def asyncio_detailed(
 ) -> Response[Union[DragAndDropResponse200, Error]]:
     """ Drag and drop
 
-     Performs a drag and drop operation between two elements
+     Drag an element to another location.
+
+    Both source and target selectors can be plain language descriptions
+    which will be converted to valid selectors using LLMs.
 
     Args:
         session_id (UUID):
@@ -201,7 +210,10 @@ async def asyncio(
 ) -> Optional[Union[DragAndDropResponse200, Error]]:
     """ Drag and drop
 
-     Performs a drag and drop operation between two elements
+     Drag an element to another location.
+
+    Both source and target selectors can be plain language descriptions
+    which will be converted to valid selectors using LLMs.
 
     Args:
         session_id (UUID):
